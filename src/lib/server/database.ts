@@ -1,15 +1,19 @@
 // In a real app, this data would live in a database,
+
+import type { FocusStats } from './calculate-weapon-stats';
+
 // rather than in memory. But for now, we cheat.
-export type Weapon = {
+export type BaseWeapon = {
 	id: string;
-	pHit: number;
+	pHitPct: number;
 	nDice: number;
 	dmg: number;
 	name: string;
 };
 
-const db = new Map<string, Weapon[]>();
+export type Weapon = BaseWeapon & FocusStats;
 
+const db = new Map<string, Weapon[]>();
 
 export function getWeapons(userId: string) {
 	if (!db.get(userId)) {

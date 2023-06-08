@@ -30,18 +30,22 @@
 
 		<div class="flex items-center justify-between gap-6 mt-3">
 			<div class="rating rating-lg gap-2">
-				<input type="radio" name="nDice" value="1" class="mask mask-squircle" />
-				<input type="radio" name="nDice" value="2" class="mask mask-squircle" />
-				<input type="radio" name="nDice" value="3" class="mask mask-squircle" checked />
-				<input type="radio" name="nDice" value="4" class="mask mask-squircle" />
-				<input type="radio" name="nDice" value="5" class="mask mask-squircle" />
+				{#each [1, 2, 3, 4, 5] as i}
+					<input
+						type="radio"
+						name="nDice"
+						value={i}
+						class="mask mask-squircle"
+						checked={i === (form?.nDice ?? 3)}
+					/>
+				{/each}
 			</div>
 			<IconX class="w-5 h-5" />
 			<input
-				name="pHit"
+				name="pHitPct"
 				placeholder="Hit Chance"
 				type="number"
-				value={form?.pHit ?? ''}
+				value={form?.pHitPct ?? ''}
 				min="0"
 				max="100"
 				step=".01"

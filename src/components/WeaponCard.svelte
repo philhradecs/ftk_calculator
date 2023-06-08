@@ -2,33 +2,24 @@
 	import type { Weapon } from '$lib/server/database';
 	import { IconX } from '@tabler/icons-svelte';
 	import Card from './Card.svelte';
+	import FocusStats from './FocusStats.svelte';
+	import { enhance } from '$app/forms';
+	import WeaponStatsTable from './WeaponStatsTable.svelte';
 
 	export let weapon: Weapon;
-	const { pHit, nDice, dmg, name } = weapon;
 </script>
 
-<Card title={name} cardClass="bg-gray-900">
-	<div class='flex'>
-	  <table class="table table-xs w-fit">
-  		<tr>
-  			<th>DMG</th>
-  			<td>{dmg}</td>
-  		</tr>
-  		<tr>
-  			<th>Roll</th>
-  			<td>
-  				<div class="flex items-center gap-2">
-  					<div
-  						class="bg-base-content w-5 h-5 flex justify-center items-center text-xs text-black font-bold mask mask-squircle"
-  					>
-  						{nDice}
-  					</div>
-  					<IconX class="w-4 h-4" />
-  					<div>{pHit}%</div>
-  				</div>
-  			</td>
-  		</tr>
-  	</table>
-    <!-- <FocusStats {weapon} /> -->
+<Card title={weapon.name} titleClass='text-gray-200' cardClass="bg-gray-900 w-full indicator">
+	<div class="flex gap-8">
+		<WeaponStatsTable {weapon} />
+		<FocusStats {weapon} />
+	</div>
+	<div class="indicator-item mt-1 mr-1 z-20">
+		<form method="POST" action="?/delete-weapon" use:enhance>
+			<input type="hidden" name="id" value={weapon.id} />
+			<button class="btn btn-xs bg-base-300 btn-square">
+				<IconX class="w-3.5 h-3.5 drop-shadow-lg" />
+			</button>
+		</form>
 	</div>
 </Card>

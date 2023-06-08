@@ -1,40 +1,13 @@
 <script lang="ts">
-	import cdf from '@stdlib/stats-base-dists-binomial-cdf';
+	import type { HeatmapData } from '$lib/server/calculate-heatmap-data';
 	import Plot from './Plot.svelte';
-	import { type PlotOptions, cell, text } from '@observablehq/plot';
+	import { type PlotOptions, cell, text, crosshair } from '@observablehq/plot';
 
-	function generateRange(start: number, end: number, interval: number = 1) {
-		let length = Math.floor((end - start) / interval) + 1;
-		return Array.from({ length }, (_, i) => start + i * interval);
-	}
-
-	const getMinsuccessHeatmap = (allowedMisses: number) => {
-		const pMinSuccess = (x: number, n: number, p: number) => 1 - cdf(x - 1, n, p);
-
-		const hitChances = generateRange(0.3, 1, 0.05);
-		const dice = generateRange(1, 6);
-		const data = hitChances
-			.map((hitChance) => {
-				return dice.map((numDice) => {
-					return {
-						numDice,
-						hitChance,
-						pMinSuccess: pMinSuccess(Math.max(numDice - allowedMisses, 0), numDice, hitChance)
-					};
-				});
-			})
-			.flat();
-
-		return data;
-	};
-
-	export let maxMisses = 1;
-
-	$: data = getMinsuccessHeatmap(maxMisses);
+	export let data: HeatmapData
 
 	let options: PlotOptions;
 
-	const height = 560;
+	const height = 500;
 	const width = 340;
 
 	$: options = {
@@ -43,7 +16,7 @@
 		padding: 0.03,
 		marginLeft: 60,
 		marginBottom: 38,
-		color: { scheme: 'PiYG', type: 'linear' },
+		color: { scheme: 'PuBuGn', type: 'linear' },
 		x: {
 			label: 'Number of dice',
 			tickSize: 0,
@@ -58,7 +31,7 @@
 			tickPadding: 6
 		},
 		marks: [
-			cell(data, {
+			cell(data.values, {
 				fill: 'pMinSuccess',
 				x: 'numDice',
 				y: 'hitChance',
@@ -66,18 +39,28 @@
 				inset: 0,
 				margin: 0
 			}),
-			text(data, {
+			crosshair(data.values,{
+				x: 'numDice',
+				y: 'hitChance',
+				textFill: 'none',
+				textStroke: 'none',
+				ruleStroke: 'white',
+				ruleStrokeOpacity: 0.25,
+			}),
+			text(data.values, {
 				x: 'numDice',
 				y: 'hitChance',
 				text: (d) =>
 					d.pMinSuccess > 0.99 ? '★' : d.pMinSuccess < 0.01 ? '' : Math.round(d.pMinSuccess * 100),
-				fill: 'black',
-				stroke: 'white',
-				strokeWidth: 1.5,
+				fill: 'white',
+				fillOpacity: 0.95,
+				stroke: 'black',
+				strokeWidth: 1,
 				strokeOpacity: 0.8,
+				fontSize: 11,
 				fontFamily: 'monospace',
 				fontWeight: 'bold'
-			})
+			}),
 		]
 	};
 </script>

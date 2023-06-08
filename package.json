@@ -38,7 +38,10 @@
 		"@stdlib/types": "^0.0.14",
 		"@tabler/icons-svelte": "^2.22.0",
 		"@types/d3-format": "^3.0.1",
+		"@types/d3-scale-chromatic": "^3.0.0",
 		"d3-format": "^3.1.0",
-		"jsdom": "^22.1.0"
+		"d3-scale-chromatic": "^3.0.0",
+		"jsdom": "^22.1.0",
+		"zod": "^3.21.4"
 	}
 }
