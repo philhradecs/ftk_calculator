@@ -1,4 +1,4 @@
-import { mode } from '@stdlib/stats-base-dists-binomial';
+import mode from '@stdlib/stats-base-dists-binomial-mode';
 import { interpolatePuRd } from 'd3-scale-chromatic';
 import type { BaseWeapon } from './database';
 

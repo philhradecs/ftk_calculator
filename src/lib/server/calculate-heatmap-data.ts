@@ -1,4 +1,4 @@
-import { cdf } from '@stdlib/stats-base-dists-binomial';
+import cdf from '@stdlib/stats-base-dists-binomial-cdf';
 
 export type HeatmapDatum = {
 	numDice: number;

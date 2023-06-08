@@ -1,4 +1,4 @@
-import {z} from 'zod';
+import { z } from 'zod';
 import { fail } from '@sveltejs/kit';
 import type { ServerLoad } from '@sveltejs/kit';
 import * as db from '$lib/server/database';
@@ -26,20 +26,20 @@ export const actions = {
 			name: data.get('name'),
 			pHitPct: Number(data.get('pHitPct')),
 			nDice: Number(data.get('nDice')),
-			dmg: Number(data.get('dmg')),
+			dmg: Number(data.get('dmg'))
 		};
 
-		
-		
 		try {
-			const validated = z.object({
-				name: z.string().min(1),
-				pHitPct: z.number().min(0).max(100),
-				nDice: z.number().min(1),
-				dmg: z.number().min(0),
-			}).parse(values);
+			const validated = z
+				.object({
+					name: z.string().min(1),
+					pHitPct: z.number().min(0).max(100),
+					nDice: z.number().min(1),
+					dmg: z.number().min(0)
+				})
+				.parse(values);
 			const stats = calculateStats(validated);
-			const data = {...values, ...stats};
+			const data = { ...values, ...stats };
 			db.createWeapon(cookies.get('userId'), data);
 		} catch (error) {
 			return fail(422, {
