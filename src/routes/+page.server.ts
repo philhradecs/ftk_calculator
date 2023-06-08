@@ -20,6 +20,14 @@ export const load = (({ cookies }) => {
 
 export const actions = {
 	'create-weapon': async ({ cookies, request }) => {
+		const userId = cookies.get('userId')
+
+		if (!userId) {
+			return fail(422, {
+				error: 'User ID not found'
+			});
+		}
+
 		const data = await request.formData();
 
 		const values = {
@@ -40,7 +48,7 @@ export const actions = {
 				.parse(values);
 			const stats = calculateStats(validated);
 			const data = { ...values, ...stats };
-			db.createWeapon(cookies.get('userId'), data);
+			db.createWeapon(userId, data);
 		} catch (error) {
 			return fail(422, {
 				description: data.get('name'),

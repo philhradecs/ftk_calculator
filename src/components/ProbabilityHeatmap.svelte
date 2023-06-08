@@ -25,7 +25,6 @@
 		y: {
 			label: 'Hit chance per dice',
 			reverse: true,
-			interval: 0.05,
 			tickFormat: '.0%',
 			tickSize: 0,
 			tickPadding: 6

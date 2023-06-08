@@ -22,15 +22,15 @@ export function calculateStats(weapon: Omit<BaseWeapon, 'id'>): FocusStats {
 
 	const focusStats = Array.from({ length: nDice + 1 }, (_, idx) => {
 		const guranteedHits = idx;
-		const adjustedHitChance = Math.min(pHitPct + getFocusBonus(idx), 100) / 100;
+		const adjustedpHit = Math.min(pHitPct + getFocusBonus(idx), 100) / 100;
 		const rolledDice = Math.max(nDice - guranteedHits, 0);
-		const expectedSuccesses = guranteedHits + mode(rolledDice, adjustedHitChance);
+		const expectedSuccesses = guranteedHits + mode(rolledDice, adjustedpHit);
 		const successRate = expectedSuccesses / nDice;
 
 		return {
 			focus: guranteedHits,
 			expectedSuccesses,
-			dmgMode: expectedSuccesses * dmgPerHit,
+			dmgMode: Math.round(expectedSuccesses * dmgPerHit),
 			successRate,
 			color: interpolatePuRd(successRate)
 		};
