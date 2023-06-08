@@ -3,7 +3,7 @@
 	import { IconX } from '@tabler/icons-svelte';
 
 	export let weapon: Weapon;
-	const { pHitPct, nDice, dmg, name } = weapon;
+	const { pHitPct, nDice, dmg } = weapon;
 </script>
 
 <table class="table table-xs w-fit">
@@ -16,7 +16,7 @@
 		<td>
 			<div class="flex items-center gap-1">
 				<div
-					class="bg-base-content w-5 h-5 flex justify-center items-center text-xs text-black font-bold mask mask-squircle"
+					class="bg-base-content w-5 h-5 flex justify-center items-center text-xs text-black font-bold mask mask-squircle drop-shadow-md"
 				>
 					{nDice}
 				</div>

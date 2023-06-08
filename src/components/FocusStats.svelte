@@ -14,7 +14,7 @@
 				{#if focus === 0}
 					<div
 						style:background={color}
-						class="w-14 h-14 flex justify-center items-center mask mask-hexagon"
+						class="w-14 h-14 flex justify-center items-center mask mask-hexagon drop-shadow-lg"
 					>
 						<span class:text-white={successRate === 1} class="text-black text-xl font-bold">
 							{dmgMode}
@@ -23,7 +23,7 @@
 				{:else}
 					<div
 						style:background={color}
-						class="w-9 h-9 flex justify-center items-center mask mask-hexagon"
+						class="w-9 h-9 flex justify-center items-center mask mask-hexagon drop-shadow-lg"
 					>
 						<span class:text-white={successRate === 1} class="text-black text-sm font-bold">
 							{dmgMode}

@@ -2,7 +2,6 @@
 	import { enhance } from '$app/forms';
 	import { IconX } from '@tabler/icons-svelte';
 	import Card from './Card.svelte';
-	let form: HTMLFormElement;
 </script>
 
 <Card title="+ Add Weapon">
@@ -28,14 +27,8 @@
 
 		<div class="flex items-center justify-between gap-6 mt-3">
 			<div class="rating rating-lg gap-2">
-				{#each [1, 2, 3, 4, 5] as i}
-					<input
-						type="radio"
-						name="nDice"
-						value={i}
-						checked={i === 3}
-						class="mask mask-squircle"
-					/>
+				{#each [1, 2, 3, 4, 5] as i (i)}
+					<input type="radio" name="nDice" value={i} checked={i === 3} class="mask mask-squircle" />
 				{/each}
 			</div>
 			<IconX class="w-5 h-5" />
@@ -45,7 +38,6 @@
 				type="number"
 				min="0"
 				max="100"
-				step=".01"
 				required
 				class="input w-32"
 			/>
