@@ -11,7 +11,6 @@
 			<input
 				name="name"
 				placeholder="Weapon Name"
-				value={form?.name ?? ''}
 				autocomplete="off"
 				required
 				class="input flex-1"
@@ -21,7 +20,6 @@
 				placeholder="DMG"
 				type="number"
 				min="0"
-				value={form?.dmg ?? ''}
 				autocomplete="off"
 				required
 				class="input w-32"
@@ -35,8 +33,8 @@
 						type="radio"
 						name="nDice"
 						value={i}
+						checked={i === 3}
 						class="mask mask-squircle"
-						checked={i === (form?.nDice ?? 3)}
 					/>
 				{/each}
 			</div>
@@ -45,7 +43,6 @@
 				name="pHitPct"
 				placeholder="Hit Chance"
 				type="number"
-				value={form?.pHitPct ?? ''}
 				min="0"
 				max="100"
 				step=".01"

@@ -7,8 +7,8 @@
 
 	let options: PlotOptions;
 
-	const height = 500;
-	const width = 340;
+	const height = 520;
+	const width = 380;
 
 	$: options = {
 		height,
