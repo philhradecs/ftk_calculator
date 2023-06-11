@@ -13,5 +13,6 @@
 </script>
 
 <QueryClientProvider client={queryClient}>
+  
 	<slot />
 </QueryClientProvider>

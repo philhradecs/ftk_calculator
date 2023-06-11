@@ -7,11 +7,9 @@ export type WeaponSearchResult = WeaponSearchItem[];
 
 export const GET = (({ url }) => {
 	const search = url.searchParams.get('s') ?? '';
-
 	const results =
 		search === ''
 			? []
 			: weapons.filter((weapon) => weapon.weapon_name.toLowerCase().includes(search.toLowerCase()));
-
 	return json(results);
 }) satisfies RequestHandler;

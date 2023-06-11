@@ -10,7 +10,6 @@
 	let showForm = false;
 
 	const handleNameChange = (e: Event) => {
-		console.log(e);
 		const target = e.target as HTMLInputElement;
 		search = target.value;
 	};
@@ -33,81 +32,85 @@
 			}
 		}
 	};
+
 </script>
-	
-	{#if showForm}
-		<div>
-			<Card title="+ Add Weapon">
-				<form
-					bind:this={form}
-					method="POST"
-					action="?/create-weapon"
-					use:enhance
-					on:submit={() => {
-						search = '';
-						showForm = false;
-					}}
-					class='mt-2'
-				>
-					<div class="flex gap-3">
-						<input
-							name="name"
-							placeholder="Weapon Name"
-							autofocus
-							autocomplete="off"
-							required
-							class="input flex-1"
-							on:input={handleNameChange}
-						/>
-						<input
-							name="dmg"
-							placeholder="DMG"
-							type="number"
-							min="0"
-							autocomplete="off"
-							required
-							class="input w-32"
-						/>
+
+{#if showForm}
+	<div>
+		<Card title="+ Add Weapon">
+			<form
+				bind:this={form}
+				method="POST"
+				action="?/create-weapon"
+				use:enhance
+				on:submit={() => {
+					search = '';
+					showForm = false;
+				}}
+				class="mt-2"
+			>
+				<div class="flex gap-3">
+					<input
+						name="name"
+						placeholder="Weapon Name"
+						autofocus
+						autocomplete="off"
+						required
+						class="input flex-1"
+						on:input={handleNameChange}
+					/>
+					<input
+						name="dmg"
+						placeholder="DMG"
+						type="number"
+						min="0"
+						autocomplete="off"
+						required
+						class="input w-32"
+					/>
+				</div>
+
+				<div class="flex items-center justify-between gap-6 mt-3">
+					<div class="rating rating-lg gap-2">
+						{#each [1, 2, 3, 4, 5] as i (i)}
+							<input
+								type="radio"
+								name="nDice"
+								value={i}
+								checked={i === 3}
+								class="mask mask-squircle"
+							/>
+						{/each}
 					</div>
-	
-					<div class="flex items-center justify-between gap-6 mt-3">
-						<div class="rating rating-lg gap-2">
-							{#each [1, 2, 3, 4, 5] as i (i)}
-								<input
-									type="radio"
-									name="nDice"
-									value={i}
-									checked={i === 3}
-									class="mask mask-squircle"
-								/>
-							{/each}
-						</div>
-						<IconX class="w-5 h-5" />
-						<input
-							name="pHitPct"
-							placeholder="Hit Chance"
-							type="number"
-							min="0"
-							max="100"
-							required
-							class="input w-32"
-						/>
-					</div>
-					<div class="mt-6 flex gap-2">
-						<button class="btn btn-sm w-28 btn-success">Add</button>
-						<button type='button' class="btn btn-sm w-28 btn-ghost" on:click={() => (showForm = false)}>
-							Cancel
-						</button>
-					</div>
-				</form>
-			</Card>
-			<div class="mt-8"><WeaponSearchResults {search} on:click={(data) => setFormValues(data.detail)} /></div>
+					<IconX class="w-5 h-5" />
+					<input
+						name="pHitPct"
+						placeholder="Hit Chance"
+						type="number"
+						min="0"
+						max="100"
+						required
+						class="input w-32"
+					/>
+				</div>
+				<div class="mt-6 flex gap-2">
+					<button class="btn btn-sm w-28 btn-success">Add</button>
+					<button
+						type="button"
+						class="btn btn-sm w-28 btn-ghost"
+						on:click={() => (showForm = false)}
+					>
+						Cancel
+					</button>
+				</div>
+			</form>
+		</Card>
+		<div class="mt-8">
+			<WeaponSearchResults {search} on:click={(data) => setFormValues(data.detail)} />
 		</div>
-	{:else}
-			<div class="flex">
-				<button class="btn btn-black ml-auto" on:click={() => (showForm = true)}>
-					+ Add Weapon
-				</button>
-			</div>
-	{/if}
-	
+	</div>
+{:else}
+	<div class="flex">
+		<button class="btn btn-black ml-auto" on:click={() => (showForm = true)}> + Add Weapon </button>
+	</div>
+{/if}
