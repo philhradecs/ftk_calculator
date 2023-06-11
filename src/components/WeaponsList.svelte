@@ -5,7 +5,7 @@
 	export let weapons: Weapon[];
 </script>
 
-<div class="flex flex-col gap-6">
+<div class="flex flex-col gap-8">
 	{#each weapons as weapon (weapon.id)}
 		<WeaponCard {weapon} />
 	{/each}

@@ -11,7 +11,7 @@
 </script>
 
 <Card title={weapon.name} titleClass="text-gray-200" cardClass="bg-slate-900 w-full relative">
-	<div class="flex gap-10 items-start">
+	<div class="flex gap-10 items-start mt-1">
 		<WeaponStatsTable {weapon} />
 		<div class="group">
 			<div class="block group-hover:hidden">
