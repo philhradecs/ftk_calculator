@@ -37,6 +37,7 @@
 		"@stdlib/stats-base-dists-binomial": "^0.0.7",
 		"@stdlib/types": "^0.0.14",
 		"@tabler/icons-svelte": "^2.22.0",
+		"@tanstack/svelte-query": "^5.0.0-alpha.58",
 		"@types/d3-format": "^3.0.1",
 		"@types/d3-scale-chromatic": "^3.0.0",
 		"d3-format": "^3.1.0",

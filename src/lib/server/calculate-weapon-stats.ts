@@ -1,13 +1,13 @@
 import mode from '@stdlib/stats-base-dists-binomial-mode';
-import { interpolatePuRd } from 'd3-scale-chromatic';
+import pmf from '@stdlib/stats-base-dists-binomial-pmf';
 import type { BaseWeapon } from './database';
 
-type FocusStat = {
+export type FocusStat = {
 	focus: number;
 	expectedSuccesses: number;
 	dmgMode: number;
 	successRate: number;
-	color: string;
+	pPerfect: number;
 };
 
 export type FocusStats = {
@@ -24,7 +24,9 @@ export function calculateStats(weapon: Omit<BaseWeapon, 'id'>): FocusStats {
 		const guranteedHits = idx;
 		const adjustedHitChance = Math.min(pHitPct + getFocusBonus(idx), 100) / 100;
 		const rolledDice = Math.max(nDice - guranteedHits, 0);
-		const rolledSuccesses = adjustedHitChance < 1 ? mode(rolledDice, adjustedHitChance) : rolledDice;
+		const rolledSuccesses =
+			adjustedHitChance < 1 ? mode(rolledDice, adjustedHitChance) : rolledDice;
+		const pPerfect = pmf(rolledDice, rolledDice, adjustedHitChance);
 		const expectedSuccesses = guranteedHits + rolledSuccesses;
 		const successRate = expectedSuccesses / nDice;
 
@@ -33,7 +35,7 @@ export function calculateStats(weapon: Omit<BaseWeapon, 'id'>): FocusStats {
 			expectedSuccesses,
 			dmgMode: Math.round(expectedSuccesses * dmgPerHit),
 			successRate,
-			color: interpolatePuRd(successRate)
+			pPerfect
 		};
 	});
 	return { focusStats };

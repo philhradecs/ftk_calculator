@@ -46,8 +46,10 @@ export const actions = {
 					dmg: z.number().min(0)
 				})
 				.parse(values);
+
 			const stats = calculateStats(validated);
 			const data = { ...values, ...stats };
+			
 			db.createWeapon(userId, data);
 		} catch (error) {
 			return fail(422, {

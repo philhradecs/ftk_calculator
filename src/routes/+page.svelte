@@ -10,7 +10,7 @@
 	<div class="self-start h-auto sticky top-8">
 		<GeneralProbability heatmaps={data.heatmaps} />
 	</div>
-	<div class="flex flex-col gap-12 w-[500px]">
+	<div class="flex flex-col gap-10 w-[540px]">
 		{#if data.weapons.length}
 			<WeaponsList weapons={data.weapons} />
 		{/if}
